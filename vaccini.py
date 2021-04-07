@@ -7,7 +7,8 @@ import os
 url = "https://raw.githubusercontent.com/italia/covid19-opendata-vaccini/master/dati/somministrazioni-vaccini-summary-latest.json"
 response = json.loads(urllib.request.urlopen(url).read().decode('utf-8'))
 
-data = {}
+data1 = {}
+data2 = {}
 total1 = {}
 total2 = {}
 
@@ -20,7 +21,8 @@ with open('pop_regioni.json') as json_file:
 
     for key in data.keys():
 
-        dosi = 0 
+        dosi1 = 0 
+        dosi2 = 0
         area = ''
         pop = data[key]['popolazione']
         sumPop += pop
@@ -31,11 +33,18 @@ with open('pop_regioni.json') as json_file:
             secondadose = response['data'][i]['seconda_dose']
             
             if key in area:
-                dosi += secondadose
+                dosi1 += primadose
+                dosi2 += secondadose
+                
                 sum1Dos += primadose
                 sum2Dos += secondadose
 
-        data[key] = {'value' : str(round(((dosi * 100) / pop), 2 ))}
+        data1[key] = {'value' : str(round(((dosi1 * 100) / pop), 2 ))}
+        data2[key] = {'value' : str(round(((dosi2 * 100) / pop), 2 ))}
+
+total1['total'] = {'value' : sum1Dos * 100 / sumPop}
+total2['total'] = {'value' : sum2Dos * 100 / sumPop}
+
         
 total1['total'] = {'value' : sum1Dos * 100 / sumPop}
 total2['total'] = {'value' : sum2Dos * 100 / sumPop}
@@ -70,12 +79,16 @@ statusid = tweet.id_str
 # reply to tweet
 
 for region in data.keys():
-    value = float(data[region]['value'])
-    
+    value = float(data1[region]['value'])
     normalised = round((value * customrange) / 100 ) 
     diff = round((customrange - normalised))
+    status1 = fill * normalised + empty * diff + ' ' +  str(value) + '% 1 dose'
+
+    value = float(data2[region]['value'])
+    normalised = round((value * customrange) / 100 ) 
+    diff = round((customrange - normalised))
+    status2 = fill * normalised + empty * diff + ' ' +  str(value) + '% 2 dosi'
     
-    print(fill * normalised + empty * diff + ' ' + region + ' ' + str(value) + '%')
-    api.update_status('@TrackerVaccini "' + fill * normalised + empty * diff + ' ' + region + ' ' + str(value) + '%' , in_reply_to_status_id = statusid, card_uri = 'tombstone://card')
+    api.update_status('@TrackerVaccini "' + status1 + '\n' + status2 + , in_reply_to_status_id = statusid, card_uri = 'tombstone://card')
     time.sleep(2)
 
