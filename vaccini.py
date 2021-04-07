@@ -63,13 +63,13 @@ api = tweepy.API(auth)
 value = round(total1['total']['value'],1)
 normalised = round((value * customrange) / 100 ) 
 diff = round((customrange - normalised))
-status1 = fill * normalised + empty * diff + ' ' +  str(value) + '% 1 dose'
+status1 = '1 dose\n' + fill * normalised + empty * diff + ' ' +  str(value) + '%'
 print(status1)
 
 value = round(total2['total']['value'],1)
 normalised = round((value * customrange) / 100 ) 
 diff = round((customrange - normalised))
-status2 = fill * normalised + empty * diff + ' ' +  str(value) + '% 2 dosi'
+status2 = '2 dosi\n' fill * normalised + empty * diff + ' ' +  str(value) + '%'
 print(status2)
 
 tweet = api.update_status(status1 + '\n' + status2)
@@ -82,12 +82,12 @@ for region in data.keys():
     value = float(data1[region]['value'])
     normalised = round((value * customrange) / 100 ) 
     diff = round((customrange - normalised))
-    status1 = fill * normalised + empty * diff + ' ' +  str(value) + '% 1 dose'
+    status1 = '1 dose\n' + fill * normalised + empty * diff + ' ' +  str(value) + '% 1'
 
     value = float(data2[region]['value'])
     normalised = round((value * customrange) / 100 ) 
     diff = round((customrange - normalised))
-    status2 = fill * normalised + empty * diff + ' ' +  str(value) + '% 2 dosi'
+    status2 = '2 dosi\n' + fill * normalised + empty * diff + ' ' +  str(value) + '%'
     
     api.update_status('@TrackerVaccini ' + region + '\n' + status1 + '\n' + status2, in_reply_to_status_id = statusid, card_uri = 'tombstone://card')
     time.sleep(2)
