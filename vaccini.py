@@ -65,6 +65,9 @@ print(status2)
 
 tweet = api.update_status(status1 + '\n' + status2)
 time.sleep(2)
+statusid = tweet.id_str
+
+# reply to tweet
 
 for region in data.keys():
     value = float(data[region]['value'])
@@ -73,3 +76,6 @@ for region in data.keys():
     diff = round((customrange - normalised))
     
     print(fill * normalised + empty * diff + ' ' + region + ' ' + str(value) + '%')
+    api.update_status('@TrackerVaccini "' + fill * normalised + empty * diff + ' ' + region + ' ' + str(value) + '%' , in_reply_to_status_id = statusid, card_uri = 'tombstone://card')
+    time.sleep(2)
+
