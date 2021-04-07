@@ -89,6 +89,6 @@ for region in data.keys():
     diff = round((customrange - normalised))
     status2 = fill * normalised + empty * diff + ' ' +  str(value) + '% 2 dosi'
     
-    api.update_status('@TrackerVaccini ' + status1 + '\n' + status2, in_reply_to_status_id = statusid, card_uri = 'tombstone://card')
+    api.update_status('@TrackerVaccini ' + region + '\n' + status1 + '\n' + status2, in_reply_to_status_id = statusid, card_uri = 'tombstone://card')
     time.sleep(2)
 
