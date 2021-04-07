@@ -54,13 +54,13 @@ api = tweepy.API(auth)
 value = round(total1['total']['value'],1)
 normalised = round((value * customrange) / 100 ) 
 diff = round((customrange - normalised))
-status1 = fill * normalised + empty * diff + ' ' +  str(value) + '% prima dose'
+status1 = fill * normalised + empty * diff + ' ' +  str(value) + '% 1 dose'
 print(status1)
 
 value = round(total2['total']['value'],1)
 normalised = round((value * customrange) / 100 ) 
 diff = round((customrange - normalised))
-status2 = fill * normalised + empty * diff + ' ' +  str(value) + '% seconda dose'
+status2 = fill * normalised + empty * diff + ' ' +  str(value) + '% 2 dosi'
 print(status2)
 
 tweet = api.update_status(status1 + '\n' + status2)
