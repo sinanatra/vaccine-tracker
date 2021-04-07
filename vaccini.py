@@ -41,7 +41,7 @@ total1['total'] = {'value' : sum1Dos * 100 / sumPop}
 total2['total'] = {'value' : sum2Dos * 100 / sumPop}
 
 empty = '░'
-fill = '█'
+fill = '▓'
 customrange = 20
 
 # Authenticate to Twitter
