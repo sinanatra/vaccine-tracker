@@ -2,6 +2,7 @@ import json
 import urllib.request
 import tweepy
 import time
+import os
 
 url = "https://raw.githubusercontent.com/italia/covid19-opendata-vaccini/master/dati/somministrazioni-vaccini-summary-latest.json"
 response = json.loads(urllib.request.urlopen(url).read().decode('utf-8'))
