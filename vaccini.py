@@ -51,19 +51,16 @@ auth.set_access_token(os.environ['TWITTER_TOKEN'], os.environ['TWITTER_TOKEN_SEC
 api = tweepy.API(auth)
 
 value = round(total1['total']['value'],1)
-normalised = round(customrange/ value ) 
+normalised = round((value * customrange) / 100 ) 
 diff = round((customrange - normalised))
-
 status1 = fill * normalised + empty * diff + ' ' +  str(value) + '% prima dose'
 print(status1)
 
 value = round(total2['total']['value'],1)
-normalised = round(customrange/ value ) 
+normalised = round((value * customrange) / 100 ) 
 diff = round((customrange - normalised))
-
 status2 = fill * normalised + empty * diff + ' ' +  str(value) + '% seconda dose'
 print(status2)
-
 
 tweet = api.update_status(status1 + '\n' + status2)
 time.sleep(2)
