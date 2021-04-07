@@ -69,7 +69,7 @@ print(status1)
 value = round(total2['total']['value'],1)
 normalised = round((value * customrange) / 100 ) 
 diff = round((customrange - normalised))
-status2 = '2 dosi\n' fill * normalised + empty * diff + ' ' +  str(value) + '%'
+status2 = '2 dosi\n' +  fill * normalised + empty * diff + ' ' +  str(value) + '%'
 print(status2)
 
 tweet = api.update_status(status1 + '\n' + status2)
