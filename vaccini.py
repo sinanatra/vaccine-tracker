@@ -69,7 +69,7 @@ time.sleep(2)
 for region in data.keys():
     value = float(data[region]['value'])
     
-    normalised = round(customrange / value ) 
+    normalised = round((value * customrange) / 100 ) 
     diff = round((customrange - normalised))
     
     print(fill * normalised + empty * diff + ' ' + region + ' ' + str(value) + '%')
